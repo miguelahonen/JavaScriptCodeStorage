@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script type="text/javascript">
+    // Todo:
+    // - Change rate for border width should be smoother
+    // - Border width in the table should be defined in CSS
+    // - The code should be more like functional and shortened -> more one liners
+
+      function createSmoothEndingIntArray(howLongArrayShouldBe) {
+        helpArray = [];
+        let decrease = 1;
+        if (howLongArrayShouldBe % 2 == 0) {
+          for (var i = 0; i <= (howLongArrayShouldBe); i++) {
+            helpArray.push(i+1);
+          }
+          helpArray.pop();
+          lastNumber = 2;
+          for (var j = howLongArrayShouldBe-1; j > (howLongArrayShouldBe/2); j--) {
+            helpArray[j] = lastNumber;
+            lastNumber += 1;
+          }
+          return helpArray;
+        } else {
+          console.log("Give an even number for an argument");
+          return helpArray;
+        }
+      }
+
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function waves(elemId, sleepingTimeMS, itemsInArray) {
+        var numbs = createSmoothEndingIntArray(itemsInArray); // 16
+        while (true) {
+          for (let j = 0; j < numbs.length ; j++) {
+            await sleep(sleepingTimeMS);
+            document.getElementById(elemId).border = `${numbs[j]}`;
+           }
+        }
+      }
+
+      window.onload = function() {
+        const heading = document.createElement("h1");
+        const heading_text = document.createTextNode("Jiihaa");
+        document.body.appendChild(tableX);
+        heading.appendChild(heading_text);
+        document.body.appendChild(heading);
+        const table = document.getElementById("testing1");
+        const tableAttrs = table.attributes;
+        for (let i = 0; i < tableAttrs.length; i++) {
+          if (tableAttrs[i].nodeName.toLowerCase() == "border") {
+            table.style.borderColor = "red";
+          }
+        }
+        table.summary = "Note: table border increased";
+      }
+
+      let howManyOfRows = 3;
+      let howManyOfDividers = 3;
+      var textnode = document.createTextNode("Some placeholder..");
+      var tableX = document.createElement('table');
+      tableX.setAttribute('id', 'testing1');
+      tableX.border = '1';
+      var table_row = document.createElement('tr');
+      var table_cell = document.createElement('td');
+      table_cell.appendChild(textnode);
+
+      for (var i = 0; i < howManyOfDividers; i++) {
+        table_row.appendChild(table_cell.cloneNode(true));
+      }
+      for (var i = 0; i < howManyOfRows; i++) {
+        tableX.appendChild(table_row.cloneNode(true));
+      }
+
+      waves(tableX.id, 100, 26);
+    </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  </body>
+</html>
