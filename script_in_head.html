@@ -7,6 +7,87 @@
     // - Border width in the table should be defined in CSS
     // - The code should be more like functional and shortened -> more one liners
 
+      function addFormAndButton(elementCarrier) {
+        const form1 = document.createElement("form");
+        form1.setAttribute("id", "form1");
+        form1.setAttribute("method", "post");
+        form1.setAttribute("action", "jotain.php")
+        var nameInfo = document.createElement("input");
+        nameInfo.setAttribute("type", "text");
+        nameInfo.setAttribute("name", "fullName")
+        nameInfo.setAttribute("placeholder", "Write your full name")
+        var submitter = document.createElement("input");
+        submitter.setAttribute("type", "submit")
+        submitter.setAttribute("value", "Submit now!")
+        form1.appendChild(nameInfo);
+        // form1.appendChild(br.cloneNode());
+        form1.appendChild(submitter);
+        document.getElementsByTagName("body")[0].appendChild(form1);
+
+        // linebreak = document.createElement("br");
+        for (var key in Object.keys(elementCarrier)) {
+          if (key == 0) {
+            this["formX0"] = document.createElement("form");
+
+            for (var genKey in Object.values(elementCarrier)[key]) {
+              this["formX0"].setAttribute(genKey, Object.values(elementCarrier)[key][genKey]);
+            }
+          }
+
+          let count = 1;
+          let keeper = true;
+          while (keeper) {
+            this["formX"+count] = document.createElement("input");
+            for (var genKey in Object.values(elementCarrier)[key]['input'+count]) {
+              this["formX"+count].setAttribute(genKey, Object.values(elementCarrier)[key]['input'+count][genKey]);
+            }
+            this["formX0"].appendChild(this["formX"+count]);
+            keeper = (this["formX"+count].getAttribute("id") != null) ? true : false;
+            count += 1;
+          }
+        }
+        document.getElementsByTagName("body")[0].appendChild(formX0);
+        console.log(formX0);
+      }
+
+      var carrier = {
+        form: {
+          name: "form2",
+          id: "form2",
+          method: "post",
+          action: "jotain.php"
+        },
+        inputs: {
+          input1: {
+            id: "nameInfo",
+            type: "text",
+            name: "nameInfo",
+            placeholder: "Write your full name"
+          },
+          input2: {
+            id: "addressInfo",
+            type: "text",
+            name: "addressInfo",
+            placeholder: "Where do you live?"
+          },
+          input3: {
+            id: "friendInfo",
+            type: "text",
+            name: "friendInfo",
+            placeholder: "Who is your friend"
+          },
+          input4: {
+            id: "submitter",
+            type: "submit",
+            value: "Submit now!"
+          }
+        }
+      };
+
+      function defineAndAddForm () {
+        return null;
+      }
+
       function createSmoothEndingIntArray(howLongArrayShouldBe) {
         helpArray = [];
         let decrease = 1;
@@ -42,6 +123,7 @@
       }
 
       window.onload = function() {
+        addFormAndButton(carrier);
         const heading = document.createElement("h1");
         const heading_text = document.createTextNode("Jiihaa");
         document.body.appendChild(tableX);
